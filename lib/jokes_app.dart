@@ -20,7 +20,7 @@ class JokesApp extends StatelessWidget {
           primaryColor: ColorsManager.primary,
           scaffoldBackgroundColor: Colors.white,
         ),
-        initialRoute: Routes.loginScreen,
+        initialRoute: Routes.splashScreen,
         onGenerateRoute: appRouter.generateRoute,
       )
     );
