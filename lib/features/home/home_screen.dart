@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jokes_app/core/widgets/GradientContainer.dart';
+import 'package:lottie/lottie.dart';
 
 import 'cubit/HomeCubit.dart';
 import 'cubit/home-states.dart';
@@ -71,12 +72,12 @@ class _HomeScreenState extends State<HomeScreen> {
                             borderRadius: BorderRadius.circular(20),
                           ),
                           child: Padding(
-                            padding: const EdgeInsets.only(left: 20.0), // Add padding to the left
+                            padding: const EdgeInsets.only(left: 15.0), // Add padding to the left
                             child: Stack(
                               children: [
                                 Center(
                                   child: state is JokeLoading
-                                      ? CircularProgressIndicator()
+                                      ? Lottie.asset('assets/lotti.json' , height: 200, width: 200)
                                       : state is JokeError
                                       ? Text(
                                     state.message,
