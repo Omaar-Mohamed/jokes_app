@@ -5,15 +5,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jokes_app/core/widgets/GradientContainer.dart';
 import 'package:lottie/lottie.dart';
 
-import 'cubit/HomeCubit.dart';
-import 'cubit/home-states.dart';
+import '../cubit/HomeCubit.dart';
+import '../cubit/home-states.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jokes_app/core/widgets/GradientContainer.dart';
 
-import 'cubit/HomeCubit.dart';
-import 'cubit/home-states.dart';
+import '../cubit/HomeCubit.dart';
+import '../cubit/home-states.dart';
 
 class HomeScreen extends StatefulWidget {
   @override

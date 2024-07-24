@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jokes_app/core/routing/routes.dart';
-import 'package:jokes_app/features/home/Tabbar.dart';
+import 'package:jokes_app/features/home/views/Tabbar.dart';
 import 'package:jokes_app/features/login/LoginScreen.dart';
 
 import '../../features/splash_screen.dart';
