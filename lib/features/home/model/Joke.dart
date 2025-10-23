@@ -14,6 +14,7 @@ class Joke {
   final int? id;
   final String? lang;
   final String? joke;
+  final String? message; // Error message field
 
   Joke({
     this.error,
@@ -31,6 +32,7 @@ class Joke {
     this.id,
     this.lang,
     this.joke,
+    this.message,
   });
 
   factory Joke.fromJson(Map<String, dynamic> json) {
@@ -40,16 +42,17 @@ class Joke {
       type: json['type'] as String?,
       setup: json['setup'] as String?,
       delivery: json['delivery'] as String?,
-      nsfw: json['flags']['nsfw'] as bool?,
-      religious: json['flags']['religious'] as bool?,
-      political: json['flags']['political'] as bool?,
-      racist: json['flags']['racist'] as bool?,
-      sexist: json['flags']['sexist'] as bool?,
-      explicit: json['flags']['explicit'] as bool?,
+      nsfw: json['flags']?['nsfw'] as bool?,
+      religious: json['flags']?['religious'] as bool?,
+      political: json['flags']?['political'] as bool?,
+      racist: json['flags']?['racist'] as bool?,
+      sexist: json['flags']?['sexist'] as bool?,
+      explicit: json['flags']?['explicit'] as bool?,
       safe: json['safe'] as bool?,
       id: json['id'] as int?,
       lang: json['lang'] as String?,
       joke: json['joke'] as String?,
+      message: json['message'] as String?,
     );
   }
 }

@@ -2,29 +2,12 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jokes_app/core/widgets/GradientContainer.dart';
 import 'package:lottie/lottie.dart';
 
 import '../cubit/HomeCubit.dart';
 import '../cubit/home-states.dart';
 
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jokes_app/core/widgets/GradientContainer.dart';
-
-import '../cubit/HomeCubit.dart';
-import '../cubit/home-states.dart';
-
-class HomeScreen extends StatefulWidget {
-  @override
-  _HomeScreenState createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  String dropdownValue1 = 'Option 1';
-  String dropdownValue2 = 'Option 1';
-  String dropdownValue3 = 'Option 1';
-
+class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,9 +23,11 @@ class _HomeScreenState extends State<HomeScreen> {
             }
           },
           builder: (context, state) {
+            final cubit = context.read<HomeCubit>();
+
             return GestureDetector(
               onTap: () {
-                // FocusScope.of(context).unfocus();
+                FocusScope.of(context).unfocus();
               },
               child: Container(
                 height: MediaQuery.of(context).size.height,
@@ -154,6 +139,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             borderRadius: BorderRadius.circular(20),
                           ),
                           child: TextField(
+                            onChanged: (value) {
+                              cubit.updateSearchText(value);
+                            },
                             decoration: InputDecoration(
                               border: InputBorder.none,
                               hintText: 'Search for a joke...',
@@ -169,7 +157,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              // Dropdown 1
+                              // Dropdown 1 - Category
                               Container(
                                 padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                                 decoration: BoxDecoration(
@@ -179,16 +167,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                 child: DropdownButtonHideUnderline(
                                   child: DropdownButton<String>(
                                     dropdownColor: Colors.black.withOpacity(0.9),
-                                    value: dropdownValue1,
+                                    value: state.selectedCategory,
                                     icon: Icon(Icons.arrow_downward, color: Colors.white),
                                     iconSize: 24,
                                     style: TextStyle(color: Colors.white),
                                     onChanged: (String? newValue) {
-                                      setState(() {
-                                        dropdownValue1 = newValue!;
-                                      });
+                                      if (newValue != null) {
+                                        cubit.updateCategory(newValue);
+                                      }
                                     },
-                                    items: <String>['Option 1', 'Option 2', 'Option 3', 'Option 4']
+                                    items: <String>['Programming', 'Misc', 'Dark', 'Pun', 'Spooky', 'Christmas']
                                         .map<DropdownMenuItem<String>>((String value) {
                                       return DropdownMenuItem<String>(
                                         value: value,
@@ -198,7 +186,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                 ),
                               ),
-                              // Dropdown 2
+                              // Dropdown 2 - Blacklist Flags
                               Container(
                                 padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                                 decoration: BoxDecoration(
@@ -208,16 +196,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                 child: DropdownButtonHideUnderline(
                                   child: DropdownButton<String>(
                                     dropdownColor: Colors.black.withOpacity(0.9),
-                                    value: dropdownValue2,
+                                    value: state.selectedBlacklistFlag,
                                     icon: Icon(Icons.arrow_downward, color: Colors.white),
                                     iconSize: 24,
                                     style: TextStyle(color: Colors.white),
                                     onChanged: (String? newValue) {
-                                      setState(() {
-                                        dropdownValue2 = newValue!;
-                                      });
+                                      if (newValue != null) {
+                                        cubit.updateBlacklistFlag(newValue);
+                                      }
                                     },
-                                    items: <String>['Option 1', 'Option 2', 'Option 3', 'Option 4']
+                                    items: <String>['nsfw', 'religious', 'political', 'racist', 'sexist', 'explicit']
                                         .map<DropdownMenuItem<String>>((String value) {
                                       return DropdownMenuItem<String>(
                                         value: value,
@@ -227,7 +215,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                 ),
                               ),
-                              // Dropdown 3
+                              // Dropdown 3 - Type
                               Container(
                                 padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                                 decoration: BoxDecoration(
@@ -237,16 +225,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                 child: DropdownButtonHideUnderline(
                                   child: DropdownButton<String>(
                                     dropdownColor: Colors.black.withOpacity(0.9),
-                                    value: dropdownValue3,
+                                    value: state.selectedType,
                                     icon: Icon(Icons.arrow_downward, color: Colors.white),
                                     iconSize: 24,
                                     style: TextStyle(color: Colors.white),
                                     onChanged: (String? newValue) {
-                                      setState(() {
-                                        dropdownValue3 = newValue!;
-                                      });
+                                      if (newValue != null) {
+                                        cubit.updateType(newValue);
+                                      }
                                     },
-                                    items: <String>['Option 1', 'Option 2', 'Option 3', 'Option 4']
+                                    items: <String>['single', 'twopart']
                                         .map<DropdownMenuItem<String>>((String value) {
                                       return DropdownMenuItem<String>(
                                         value: value,
@@ -270,7 +258,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ),
                           onPressed: () {
-                            context.read<HomeCubit>().fetchJoke();
+                            cubit.fetchJoke();
                           },
                           child: Text(
                             'Generate Response',
@@ -289,4 +277,3 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-
